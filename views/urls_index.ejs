@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>TinyApp</title>
+</head>
+
+<body>
+  <!-- Add your EJS code here -->
+  <h1>Testing List</h1>
+
+  <ul>
+      <% for (let eachUrl in urls) { %>
+      <li>
+        <%= eachUrl %> : <%= urls[eachUrl] %>
+      </li>
+      <% }; %>
+
+    </ul>
+
+</body>
+
+</html>
