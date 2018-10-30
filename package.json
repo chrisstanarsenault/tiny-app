@@ -1,0 +1,14 @@
+{
+  "name": "tiny-app",
+  "version": "1.0.0",
+  "description": "Tiny App Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Arsenault",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
