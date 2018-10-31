@@ -15,7 +15,7 @@ function generateRandomString() {
     randomString += possibleLettersAndNumbers.charAt(Math.floor(Math.random() * possibleLettersAndNumbers.length));
   }
 
-  return randomString
+  return randomString;
 }
 
 let urlDatabase = {
@@ -57,24 +57,24 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.post("/urls/:id", (req, res) => {
-  urlDatabase[req.params.id] = req.body[req.params.id]
-  res.redirect('/urls')
+  urlDatabase[req.params.id] = req.body[req.params.id];
+  res.redirect('/urls');
 });
 
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id]
+  delete urlDatabase[req.params.id];
   res.redirect('/urls')
 });
 
 app.post("/login", (req, res) => {
-  res.cookie('username', req.body.username)
-  res.redirect('/urls')
-})
+  res.cookie('username', req.body.username);
+  res.redirect('/urls');
+});
 
 app.post("/logout", (req, res) => {
-  res.clearCookie('username')
-  res.redirect('/urls')
-})
+  res.clearCookie('username');
+  res.redirect('/urls');
+});
 
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
@@ -86,7 +86,7 @@ app.get("/urls.json", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.send("<html><bod>Hello <b>World</></body></html>\n")
+  res.send("<html><bod>Hello <b>World</></body></html>\n");
 });
 
 app.listen(PORT, () => {
