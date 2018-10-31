@@ -16,8 +16,9 @@
         <li>
           <form method="POST" action="/urls/<%= eachUrl %>/delete">
             <%= eachUrl %> :
-            <a href="#"><%= urls[eachUrl] %></a>
-            <input type="submit" value="Delete Me">
+            <a href="<%= urls[eachUrl] %>"><%= urls[eachUrl] %></a>
+            <a href="/urls/<%= eachUrl %>">edit</a>
+            <input type="submit" value="Delete Me" style="margin-left: 10px">
           </form>
         </li>
       <% }; %>
