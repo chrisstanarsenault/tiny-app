@@ -79,13 +79,28 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect('/urls')
 });
 
+app.get("/login", (req, res) => {
+   let templateVars = {
+     user_ID: req.cookies.user_ID
+   }
+  res.render("user-login", templateVars)
+})
+
 app.post("/login", (req, res) => {
-  res.cookie('username', req.body.username);
-  res.redirect('/urls');
+  if (req.body.email && req.body.password) {
+    for (user in users) {
+      if ((users[user]["email"] === req.body.email) && (users[user]["password"] === req.body.password)) {
+        res.cookie('user_ID', users[user].id );
+        res.redirect('/');
+        return
+      }
+    }
+    res.status(403).send()
+  }
 });
 
 app.post("/logout", (req, res) => {
-  res.clearCookie('username');
+  res.clearCookie('user_ID');
   res.redirect('/urls');
 });
 
@@ -99,14 +114,10 @@ app.post("/register", (req, res) => {
 
   let emailDoesExist = false;
 
-
-
   if(email && password) {
     for (user in users) {
       if (users[user]["email"] === email) {
       emailDoesExist = true;
-      console.log("email", email)
-      console.log("users", user)
     }
   }
 
@@ -145,3 +156,4 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
+
