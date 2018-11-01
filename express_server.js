@@ -24,12 +24,12 @@ let urlDatabase = {
 };
 
 const users = {
-  "Chris": {
+  "randomUser1ID": {
     id: "Chris Arsenault",
     email: "chrisstanarsenault@gmail.com",
     password: "rainstorm4"
   },
-  "Maija": {
+  "randomUser2ID": {
     id: "Maija Reisenauer",
     email: "hello@midge.ca",
     password: "hijinx182"
@@ -95,6 +95,12 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
   //res.cookie("register", req.body.email)
+  const userName = req.body.username;
+  const email = req.body.email;
+  const password = req.body.password;
+  let randomUserID = generateRandomString()
+  users[randomUserID] = {id:userName, email:email, password:password};
+  console.log(users)
   res.redirect("urls")
 })
 
