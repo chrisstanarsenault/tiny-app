@@ -76,6 +76,10 @@ app.post("/logout", (req, res) => {
   res.redirect('/urls');
 });
 
+app.get("/register", (req, res) => {
+  res.render('user-register')
+})
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
