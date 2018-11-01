@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 app.get("/urls", (req, res) => {
   let templateVars = {
     urls: urlDatabase,
-    username: req.cookies["username"],
+    user_ID: req.cookies.user_ID
      };
 
   res.render("urls_index", templateVars);
@@ -64,7 +64,7 @@ app.get("/urls/:id", (req, res) => {
   let templateVars = {
     shortURL: req.params.id,
     urls: urlDatabase,
-    username: req.cookies["username"]
+    user_ID: req.cookies["user_ID"]
   };
   res.render("urls_show", templateVars);
 });
@@ -94,15 +94,40 @@ app.get("/register", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-  //res.cookie("register", req.body.email)
-  const userName = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
-  let randomUserID = generateRandomString()
-  users[randomUserID] = {id:userName, email:email, password:password};
-  console.log(users)
-  res.redirect("urls")
-})
+
+  let emailDoesExist = false;
+
+
+
+  if(email && password) {
+    for (user in users) {
+      if (users[user]["email"] === email) {
+      emailDoesExist = true;
+      console.log("email", email)
+      console.log("users", user)
+    }
+  }
+
+  if (!emailDoesExist) {
+    let randomUserID = generateRandomString()
+    res.cookie("user_ID", randomUserID)
+    users[randomUserID] = {
+      id: randomUserID,
+      email: email,
+      password: password
+    };
+    res.redirect("/urls")
+    }
+
+  if (emailDoesExist) {
+      res.status(400).send("Error 400 - Your email already exisits!")
+    } else {
+      res.status(400).send("Error 400 - Fill out all forms properly!")
+    }
+  }
+});
 
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
