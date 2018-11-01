@@ -23,6 +23,19 @@ let urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const users = {
+  "Chris": {
+    id: "Chris Arsenault",
+    email: "chrisstanarsenault@gmail.com",
+    password: "rainstorm4"
+  },
+  "Maija": {
+    id: "Maija Reisenauer",
+    email: "hello@midge.ca",
+    password: "hijinx182"
+  }
+}
+
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
@@ -78,6 +91,11 @@ app.post("/logout", (req, res) => {
 
 app.get("/register", (req, res) => {
   res.render('user-register')
+})
+
+app.post("/register", (req, res) => {
+  //res.cookie("register", req.body.email)
+  res.redirect("urls")
 })
 
 app.get("/u/:shortURL", (req, res) => {
