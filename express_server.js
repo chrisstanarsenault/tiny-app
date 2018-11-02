@@ -42,6 +42,11 @@ const users = {
   }
 }
 
+const userLoggedOn = (req) => req.cookies.user_id;
+const userIsOwner = (req) => {
+  return (req.cookies.user_id === urlDatabase[req.params.id]['user_ID'])
+};
+
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
@@ -85,13 +90,17 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.post("/urls/:id", (req, res) => {
+  if (userIsOwner(req)) {
   urlDatabase[req.params.id]["url"] = req.body[req.params.id];
   res.redirect('/urls');
+  }
 });
 
 app.post("/urls/:id/delete", (req, res) => {
+  if (userIsOwner(req)) {
   delete urlDatabase[req.params.id];
   res.redirect('/urls')
+  }
 });
 
 app.get("/login", (req, res) => {
