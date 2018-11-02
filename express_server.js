@@ -19,8 +19,14 @@ function generateRandomString() {
 }
 
 let urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "b2xVn2": {
+    "url": "http://www.lighthouselabs.ca",
+    "userID": "randomUser1ID"
+  },
+  "9sm5xK": {
+    "url": "http://www.google.com",
+    "userID": "randomUser2ID"
+  }
 };
 
 const users = {
@@ -45,18 +51,27 @@ app.get("/urls", (req, res) => {
     urls: urlDatabase,
     user_ID: req.cookies.user_ID
      };
-
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = {
+    urls: urlDatabase,
+    user_ID: req.cookies.user_ID
+  }
+  if (!req.cookies.user_ID) {
+    res.redirect("/login")
+  }else {
+    res.render("urls_new", templateVars);
+  }
 });
 
 app.post("/urls", (req, res) => {
   console.log(req.body.longURL); // debug statement to see POST parameters
   let shortString = generateRandomString()
-  urlDatabase[shortString] = req.body.longURL;
+  urlDatabase[shortString] = {
+    url:req.body["longURL"],
+    userID: req.cookies.user_ID}
   res.redirect(`/urls/${shortString}`);
 });
 
@@ -64,13 +79,13 @@ app.get("/urls/:id", (req, res) => {
   let templateVars = {
     shortURL: req.params.id,
     urls: urlDatabase,
-    user_ID: req.cookies["user_ID"]
+    user_ID: req.cookies.user_ID
   };
   res.render("urls_show", templateVars);
 });
 
 app.post("/urls/:id", (req, res) => {
-  urlDatabase[req.params.id] = req.body[req.params.id];
+  urlDatabase[req.params.id]["url"] = req.body[req.params.id];
   res.redirect('/urls');
 });
 
