@@ -6,27 +6,16 @@
 </head>
 
 <body>
-  <!-- Add your EJS code here -->
   <header>
     <% include ./partials/_header %>
   </header>
 
-<% console.log(urls) %>
-  <ul>
 
-    <li>
-      <%= shortURL %> ---> <%= urls[shortURL].url %>
-      <form action="/urls/<%= shortURL %>" method="POST" style="margin-top: 10px">
-        <input id="longURL" type="text" name="<%= shortURL %>" placeholder="UPDATE THE FULL URL" style="width: 300px">
-        <input type="submit" value="Update">
-      </form>
-
-    </li>
-
-  </ul>
+<form action="/urls/<%= shortURL %>" method="POST" style="margin-top: 10px">
+  <%= shortURL %> ---->
+  <input id="longURL" value="<%= urls['url'] %>" name="<%= shortURL %>" style="width: 300px">
+  <input type="submit" value="Update">
+</form>
 
 </body>
-
-
-
 </html>

@@ -1,8 +1,8 @@
-<h1>Tiny-App Test Header!!</h1>
+<h1>Tiny-App URL -- The URL Shortener</h1>
 
-<% if (user_ID) { %>
+<% if (user) { %>
 <p>Logged in as:
-  <%= user_ID %>
+  <%= user.email %>
 </p>
 <form action="/logout" method="POST">
   <input type="submit" value="LOGOFF">
@@ -10,7 +10,7 @@
 <% } else {%>
 <p>Not Signed in: Please log in</p>
 <form action="/login" method="POST" style="margin-top: 10px">
-<a href="/login">Login Now</a>
+<p><a href="/login">Login Now</a></p>
 <a href="/register">Not Registered?</a>
 </form>
 <% } %>

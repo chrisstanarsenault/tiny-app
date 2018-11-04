@@ -6,25 +6,33 @@
 </head>
 
 <body>
-  <!-- Add your EJS code here -->
   <header>
     <% include ./partials/_header %>
   </header>
 
   <ul>
-      <% for (let eachUrl in urls) { %>
-        <li>
-          <form method="POST" action="/urls/<%= eachUrl %>/delete">
-            <a href ="/urls/<%= eachUrl %>"><%= eachUrl %></a> :
-            <a href="#"><%= urls[eachUrl].url %></a>
-            <a href="/urls/<%= eachUrl %>">EDIT</a>
-            <input type="submit" value="Delete Me">
-          </form>
-        </li>
-      <% }; %>
+    <% for (let eachUrl in urls) { %>
+      <li>
+        <a href="/u/<%= eachUrl %>"><%= eachUrl %></a> : <%= urls[eachUrl].url %>
+        <form method="GET" action="/urls/<%= eachUrl %>">
+          <input type="submit" value="Edit Me">
+        </form>
 
-    </ul>
+        <form method="POST" action="/urls/<%= eachUrl %>/delete">
+          <input type="submit" value="Delete Me">
+        </form>
+      </li>
+    <% }; %>
+  </ul>
+
+
+  <form method="GET" action="/urls/new">
+    <p>Let's make a new shortened URL! <input type="submit" value="Let's Do It!"></p>
+  </form>
+
 
 </body>
 
 </html>
+
+
